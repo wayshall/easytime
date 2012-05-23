@@ -1,6 +1,13 @@
 *.class
+.project
+.classpath
 
 # Package Files #
 *.jar
 *.war
 *.ear
+*.zip
+*/target/
+*/bin/
+*/lib/
+*/dist/
