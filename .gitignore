@@ -1,7 +1,7 @@
 *.class
 .project
 .classpath
-.log
+*.log
 
 # Package Files #
 *.jar
