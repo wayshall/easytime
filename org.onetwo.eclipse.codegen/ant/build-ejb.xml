@@ -9,6 +9,9 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
+	
+	<property name="jar.dir" value="${basedir}/target/"></property>
+	<property name="jar.file" value="${jar.dir}/${app.name}-patch.jar"></property>
 
 	<!--
 	<property name="wl.dir" value="D:\Oracle\Middleware2\user_projects\domains\domain_zjk_myweblogic1"/>
@@ -50,6 +53,32 @@
 			    <include name="**"/>
 			</fileset>
 		</copy>
+	</target>
+	
+
+	<target name="jar-init">
+		<delete file="${jar.file}" failonerror="no"/>
+	</target>
+	
+	<target name="jar" depends="jar-init">
+		<jar destfile="${jar.file}">
+			<fileset dir="${classes.dir}">
+				<include name="**/StringUtil.class" />
+			</fileset>
+			<manifest>
+				<section name="${app.name}">
+					<attribute name="Specification-Title" value="${app.name}" />
+					<attribute name="Specification-Version" value="${version}" />
+					<attribute name="Specification-Vendor" value="org.onetwo" />
+					<attribute name="Implementation-Title" value="${app.name}" />
+					<attribute name="Implementation-Version" value="${version}" />
+					<attribute name="Implementation-Vendor" value="org.onetwo Corp." />
+				</section>
+
+				<attribute name="Class-Path" value="" />
+				<attribute name="Main-Class" value="" />
+			</manifest>
+		</jar>
 	</target>
 
 </project>
