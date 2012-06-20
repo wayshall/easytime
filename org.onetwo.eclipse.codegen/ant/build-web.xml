@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project>
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+
+	<property name="wl.deploy.dir" value="${wl.dir}/autodeploy"/>
+	<property name="app.deploy.dir" value="${wl.deploy.dir}/${app.name}"/>
+
+	<property name="target.dir" value="${basedir}/target"/>
+	<property name="target.classes.dir" value="${basedir}/target/classes"/>
+
+	<property name="src.main.dir" value="${basedir}/src/main"/>
+	<property name="src.main.resources.dir" value="${src.main.dir}/resources"/>
+	<property name="src.webapp.dir" value="${src.main.dir}/webapp"/>
+	<property name="src.lib.dir" value="${basedir}/lib"/>
+	
+
+	<property name="war.dir" value="${app.deploy.dir}"/>
+	<property name="war.webinf.dir" value="${war.dir}/WEB-INF"/>
+	<property name="war.classes.dir" value="${war.webinf.dir}/classes"/>
+	<property name="war.lib.dir" value="${war.webinf.dir}/lib"/>
+	<property name="war.views.dir" value="${war.webinf.dir}/views"/>
+	
+
+	<property name="src.web.dir" value="${src.webapp.dir}"/>
+	<property name="src.web.webinf.dir" value="${src.webapp.dir}/WEB-INF"/>
+	<property name="src.web.views.dir" value="${src.webapp.dir}/WEB-INF/views"/>
+	
+	<target name="deploy" depends="copy-jars">
+		<echo>deploy for local weblogic ... </echo>
+		<delete dir="${app.deploy.dir}" ></delete>
+		<mkdir dir="${app.deploy.dir}"/>
+		<antcall target="updeploy"/>
+		<echo>deploy for local weblogic finished! </echo>
+	</target>
+
+
+	<target name="updeploy">
+		<echo>update for local weblogic ... </echo>
+		<antcall target="updateview"/>
+		<antcall target="updatecls"/>
+		<antcall target="update-jars"/>
+		<echo>update for local weblogic finished! </echo>
+	</target>
+	
+	<target name="updateview" depends="">
+		<echo>update views for local weblogic ... </echo>
+
+		<copy todir="${war.dir}" includeemptydirs="true">
+			<fileset dir="${src.webapp.dir}">
+				<include name="**"/>
+			</fileset>
+		</copy>
+		
+		<echo>update views for local weblogic finished! </echo>
+	</target>
+	
+	<target name="updatecls" depends="">
+		<echo>update for local weblogic ... </echo>
+
+		<copy todir="${war.classes.dir}">
+			<fileset dir="${basedir}/target/classes">
+			    <include name="**"/>
+			</fileset>
+		</copy>
+		
+		<echo>update for local weblogic finished! </echo>
+	</target>
+	
+
+	<target name="update-jars" depends="">
+		<copy todir="${war.lib.dir}">
+			<fileset dir="${src.lib.dir}">
+				<include name="**"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="copy-jars">
+		<echo>delete jars ... </echo>
+		<delete dir="${basedir}/lib"></delete>
+		<echo>copy jars ... </echo>
+		<exec executable="cmd">
+			<arg line="/c mvn dependency:copy-dependencies -DoutputDirectory=lib -DincludeScope=runtime -Dsilent=true"/>
+		</exec>
+	</target>
+	
+</project>

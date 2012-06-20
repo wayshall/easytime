@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="compile">
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+
+	<property name="plugin.name" value="onetwo-codegen-plugin" />
+	<property name="prjname" value="org.onetwo.eclipse.codegen" />
+	<property name="version" value="0.1" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="lib.dir" value="${basedir}/lib" />
+
+	<property name="bin.dir" value="${basedir}/bin" />
+	<property name="classes.dir" value="${dist.dir}/classes" />
+	<property name="src.java.dir" value="${basedir}/src" />
+	<property name="jar.plugin.file" value="${basedir}/${plugin.name}-${version}.jar" />
+	<property name="jar.project.file" value="${dist.dir}/${prjname}-${version}.jar" />
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile-init">
+		<delete dir="${classes.dir}" failonerror="no" />
+		<mkdir dir="${classes.dir}"/>
+	</target>
+	
+	<target name="compile" depends="compile-init">
+		<javac destdir="${classes.dir}" srcdir="${src.java.dir}" debug="on" encoding="utf-8">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="jar-init">
+		<delete dir="${dist.dir}" failonerror="no" />
+		<mkdir dir="${dist.dir}"/>
+	</target>
+	
+	<target name="jar-codegan-plugin" depends="">
+		<jar destfile="${jar.plugin.file}">
+			<fileset dir="${bin.dir}">
+				<include name="**"/>
+			</fileset>
+			<manifest>
+				<section name="common">
+					<attribute name="Specification-Title" value="onetwo-weak" />
+					<attribute name="Specification-Version" value="${version}" />
+					<attribute name="Specification-Vendor" value="org.onetwo" />
+					<attribute name="Implementation-Title" value="common" />
+					<attribute name="Implementation-Version" value="${version}" />
+					<attribute name="Implementation-Vendor" value="onetwo" />
+				</section>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="jar-codegan-plugin-project" depends="jar-init, jar-codegan-plugin">
+		<jar destfile="${jar.project.file}" manifest="META-INF/MANIFEST.MF">
+			<fileset dir="${basedir}">
+				<exclude name="build.xml"/>
+				<include name="*.properties"/>
+				<include name="*.xml"/>
+				<include name="${plugin.name}-*.jar"/>
+				<include name="lib/**"/>
+				<include name="icons/**"/>
+				<include name="template/**"/>
+				<include name="ant/**"/>
+			</fileset>
+		</jar>
+	</target>
+
+</project>

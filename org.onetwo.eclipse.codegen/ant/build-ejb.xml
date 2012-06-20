@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project>
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+
+	<!--
+	<property name="wl.dir" value="D:\Oracle\Middleware2\user_projects\domains\domain_zjk_myweblogic1"/>
+	<property name="app.name" value="car_cms_ejb"/>
+	-->
+	
+	<property name="wl.deploy.dir" value="${wl.dir}/autodeploy"/>
+	<property name="app.deploy.dir" value="${wl.deploy.dir}/${app.name}"/>
+
+	<property name="target.dir" value="${basedir}/target"/>
+	<property name="target.classes.dir" value="${basedir}/target/classes"/>
+
+	<target name="deploy" depends="">
+		<echo>deploy for local weblogic ... </echo>
+		<delete dir="${app.deploy.dir}" ></delete>
+		<mkdir dir="${app.deploy.dir}"/>
+		<antcall target="updeploy"></antcall>
+		<echo>deploy for local weblogic finished! </echo>
+	</target>
+
+	<target name="updeploy" depends="">
+		<echo>update for local weblogic ... </echo>
+		<copydir dest="${app.deploy.dir}" src="${target.classes.dir}"></copydir>
+		<echo>update for local weblogic finished! </echo>
+	</target>
+	
+
+	<target name="copy-jars">
+		<echo>copy jars ... </echo>
+		<exec executable="cmd">
+			<arg line="/c mvn dependency:copy-dependencies -DoutputDirectory=lib -DincludeScope=runtime -Dsilent=true"/>
+		</exec>
+	</target>
+	
+	<target name="update-jars" depends="copy-jars">
+		<echo>copy and update jar ... </echo>
+		<copy todir="${wl.lib.dir}">
+			<fileset dir="${basedir}/lib">
+			    <include name="**"/>
+			</fileset>
+		</copy>
+	</target>
+
+</project>

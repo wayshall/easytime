@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="codegen"
+            id="org.onetwo.eclipse.codegen">
+      </category>
+      <view
+            name="Table View"
+            icon="icons/sample.gif"
+            category="org.onetwo.eclipse.codegen"
+            class="org.onetwo.eclipse.codegen.views.TableView"
+            id="org.onetwo.eclipse.codegen.views.TableView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="org.onetwo.eclipse.codegen.views.TableView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.onetwo.eclipse.codegen.preference.CodegenPreferencePage"
+            id="org.onetwo.eclipse.codegen.page"
+            name="Codegen Config">
+      </page>
+      <page
+            class="org.onetwo.eclipse.custommenu.preference.CustemMenuPreferencePage"
+            id="org.onetwo.eclipse.custommenu.page"
+            name="Custom Menu Config">
+      </page>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.onetwo.eclipse.codegen.preference.PreferenceInitializer" />
+   </extension>
+   
+   <!--
+   <extension
+         point="org.eclipse.ui.popupMenus">
+         
+      <objectContribution
+            objectClass="org.eclipse.core.runtime.IAdaptable"
+            id="codegen.contribution">
+         <action
+               label=" ^_^ 打开我～"
+               class="org.onetwo.eclipse.codegen.actions.OpenMeAction"
+               menubarPath="additions"
+               enablesFor="1"
+               definitionId="org.onetwo.eclipse.codegen.cmd.openme"
+               id="codegen.open.me">
+         </action>
+       </objectContribution>
+   </extension>
+   -->
+   
+   <extension point="org.eclipse.ui.menus">
+	  <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+	  	<menu
+             label=" ^_^ 我的自定义菜单"
+             id="org.onetwo.eclipse.codegen.menu.custom">
+            <separator
+                  name="my costomer menu">
+            </separator>
+		    <dynamic
+		              class="org.onetwo.eclipse.custommenu.DynamicMenuItem"
+		              id="org.onetwo.eclipse.codegen.menu.custom.dynamicMenu">
+		    </dynamic>
+	    </menu>
+	  </menuContribution>
+	  <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+		  <menu
+	            label="codegen 菜单"
+	            id="org.onetwo.eclipse.codegen.menu.codegen">
+	            <separator
+	                  name="codegen menu">
+	            </separator>
+			    <command 
+		    		categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	            	commandId="org.onetwo.eclipse.codegen.cmd.openme">
+		    	</command>
+			    <command 
+		    		categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	            	commandId="org.onetwo.eclipse.codegen.cmd.build.ejb">
+		    	</command>
+			    <command 
+		    		categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	            	commandId="org.onetwo.eclipse.codegen.cmd.build.web">
+		    	</command>
+		    </menu>
+		    
+	  </menuContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+	  	<category
+	  		description="open me category description"
+	  		id="org.onetwo.eclipse.codegen.cmd.category"
+	  		name="open me category">
+	  	</category>
+	   <command
+	         id="org.onetwo.eclipse.codegen.cmd.openme"
+	         categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	         name=" ^_^ 打开我～"
+	         description="打开当前目录"/>
+	   <command
+	         id="org.onetwo.eclipse.codegen.cmd.build.ejb"
+	         categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	         name="生成ejb项目构建文件">
+	   </command>
+	   <command
+	         id="org.onetwo.eclipse.codegen.cmd.build.web"
+	         categoryId="org.onetwo.eclipse.codegen.cmd.category"
+	         name="生成web项目构建文件">
+       </command>
+	</extension>
+	
+	 <extension
+	       point="org.eclipse.ui.handlers">
+	       <handler
+				commandId="org.onetwo.eclipse.codegen.cmd.openme"
+				class="org.onetwo.eclipse.codegen.handlers.OpenMeHandler">
+	       </handler>
+	       <handler
+				commandId="org.onetwo.eclipse.codegen.cmd.build.ejb"
+				class="org.onetwo.eclipse.custommenu.handlers.CreateBuildFileHandler">
+	       </handler>
+	       <handler
+				commandId="org.onetwo.eclipse.codegen.cmd.build.web"
+				class="org.onetwo.eclipse.custommenu.handlers.CreateWebBuildFileHandler">
+	       </handler>
+	 </extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+	   <key
+	         commandId="org.onetwo.eclipse.codegen.cmd.openme"
+	         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+	         sequence="Ctrl+Shift+D"/>
+	</extension>
+   
+   <extension point="org.eclipse.ui.console.consoleFactories">
+	   <consoleFactory
+	      label="Codegen Console"
+	      class="org.onetwo.eclipse.CodegenConsoleFactory">
+	   </consoleFactory>
+   </extension>
+
+</plugin>
