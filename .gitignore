@@ -12,4 +12,6 @@
 */bin/
 */lib/
 */dist/
-*/.settings/
+.settings
+*.settings
+.metadata
