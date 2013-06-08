@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 .project
 .classpath
@@ -16,3 +17,22 @@ lib
 dist
 
 tomcat7.29
+=======
+*.class
+.project
+.classpath
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*/target/
+*/bin/
+*/lib/
+*/dist/
+.settings
+*.settings
+.metadata
+>>>>>>> f6bf3396376ded124272e4e1b1c52ab3421290c4
