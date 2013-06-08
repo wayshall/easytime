@@ -108,7 +108,7 @@ public class DynamicMenuItem extends ContributionItem {
 					IWorkbenchWindow window = CodegenPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 					IRunnableContext context = window.getWorkbench().getProgressService();
 					try {
-						context.run(true, false, new IRunnableWithProgress() {
+						context.run(true, true, new IRunnableWithProgress() {
 							
 							@Override
 							public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
@@ -116,6 +116,8 @@ public class DynamicMenuItem extends ContributionItem {
 
 								final MessageConsoleStream stream = CodegenPlugin.getDefault().getMessageConsoleStream();
 								
+								File curFile = PluginUtils.getCurrentFile(selected);
+//								System.out.println("curent:"+curFile);
 								directory = PluginUtils.getDirectory(selected);
 								String webserverDir = CodegenPlugin.getDefault().getPreferenceString(FieldNames.WEBSERVER_DEPLOY_DIR, null);
 
@@ -126,6 +128,9 @@ public class DynamicMenuItem extends ContributionItem {
 								context.put("deploy_dir", webserverDir);
 								context.put("build_ejb", AntDir.ejb);
 								context.put("build_web", AntDir.web);
+								if(curFile!=null){
+									context.put("cur_file", curFile.toString());
+								}
 								if(selected instanceof IProject){
 									IProject iprj = (IProject)selected;
 									context.put("project_name", iprj.getName());

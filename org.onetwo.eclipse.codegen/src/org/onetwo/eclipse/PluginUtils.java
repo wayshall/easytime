@@ -35,6 +35,23 @@ import org.onetwo.eclipse.codegen.CodegenPlugin;
 @SuppressWarnings("restriction")
 abstract public class PluginUtils {
 
+	public static File getCurrentFile(Object resource) {
+		if(resource==null)
+			return null;
+		File curFile = null;
+		if ((resource instanceof IResource))
+			curFile = new File(((IResource) resource).getLocation().toOSString());
+		else if ((resource instanceof File)) {
+			curFile = (File) resource;
+		}else if(resource instanceof IFileEditorInput){
+	    	IFileEditorInput input = (IFileEditorInput) resource;
+	    	curFile = input.getFile().getRawLocation().toFile();
+	    }else{
+	    	curFile = new File(resource.toString());
+	    }
+		return curFile;
+	}
+
 	public static File getDirectory(Object resource) {
 		File directory = null;
 		if ((resource instanceof IResource))

@@ -39,6 +39,9 @@ public class CommonlContextBuilder extends AbstractBuilder {
 	}
 
 	public void setSelfPackage(String selfPackage) {
+		if(selfPackage.startsWith(".")){
+			selfPackage = selfPackage.substring(1);
+		}
 		this.selfPackage = selfPackage;
 	}
 
@@ -47,10 +50,10 @@ public class CommonlContextBuilder extends AbstractBuilder {
 		outFileNameCapitalize = !templateFile.startsWith("_");
 		if(!outFileNameCapitalize)
 			templateFile = templateFile.substring(1);
-		int index = templateFile.indexOf("_");
+		/*int index = templateFile.indexOf("_");
 		if(index!=-1){
 			this.selfPackage = templateFile.substring(0, index);
-		}
+		}*/
 	}
 	
 	protected String getFullPackage(GeneratorConfig config){

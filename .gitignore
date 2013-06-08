@@ -2,14 +2,17 @@
 .project
 .classpath
 *.log
+.metadata
+.settings
 
 # Package Files #
 *.jar
 *.war
 *.ear
 *.zip
-*/target/
-*/bin/
-*/lib/
-*/dist/
-*/.settings/
+target
+bin
+lib
+dist
+
+tomcat7.29

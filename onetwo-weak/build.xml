@@ -77,7 +77,7 @@
 	</target>
 
 	<target name="copy-to-codegen" depends="jar">
-		<copy todir="E:\mydev\java_workspace\wayshall\org.onetwo.eclipse.codegen\lib" file="${jar.file}">
+		<copy todir="E:\mydev\java_workspace\easytime\org.onetwo.eclipse.codegen\lib" file="${jar.file}">
 		</copy>
 	</target>
 

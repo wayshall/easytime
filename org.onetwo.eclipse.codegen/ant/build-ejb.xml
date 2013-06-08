@@ -17,7 +17,8 @@
 	<property name="wl.dir" value="D:\Oracle\Middleware2\user_projects\domains\domain_zjk_myweblogic1"/>
 	<property name="app.name" value="car_cms_ejb"/>
 	-->
-	
+
+	<property name="wl.lib.dir" value="${wl.dir}/lib"/>
 	<property name="wl.deploy.dir" value="${wl.dir}/autodeploy"/>
 	<property name="app.deploy.dir" value="${wl.deploy.dir}/${app.name}"/>
 
