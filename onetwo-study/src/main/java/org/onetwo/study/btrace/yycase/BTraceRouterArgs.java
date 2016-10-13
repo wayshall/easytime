@@ -11,7 +11,7 @@ import com.sun.btrace.annotations.OnMethod;
 import com.sun.btrace.annotations.Self;
 
 @BTrace
-public class TraceRouterArgs {
+public class BTraceRouterArgs {
 	@OnMethod(clazz = "test.RouterServiceImpl", method = "getSalableSkus", location = @Location(Kind.ENTRY))
 	public static void traceExecute(@Self Object instance, String sid, Collection<Long> skuIds) {
 		println("call RouterServiceImpl.getSalableSkus");

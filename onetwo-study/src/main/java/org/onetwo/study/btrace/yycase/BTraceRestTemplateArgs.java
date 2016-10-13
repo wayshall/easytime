@@ -10,7 +10,7 @@ import com.sun.btrace.annotations.OnMethod;
 import com.sun.btrace.annotations.Self;
 
 @BTrace
-public class TraceRestTemplateArgs {
+public class BTraceRestTemplateArgs {
 	@OnMethod(clazz = "org.springframework.web.client.RestTemplate", method = "exchange", location = @Location(Kind.ENTRY))
 	public static void traceExecute(@Self Object instance, String url, AnyType method, AnyType requestEntity,
 			AnyType responseType, AnyType uriVariables) {
