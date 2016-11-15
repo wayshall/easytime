@@ -36,3 +36,6 @@ tomcat7.29
 *.settings
 .metadata
 >>>>>>> f6bf3396376ded124272e4e1b1c52ab3421290c4
+/onetwo-study/.gradle
+/onetwo-study/.idea
+/onetwo-study/gradle
